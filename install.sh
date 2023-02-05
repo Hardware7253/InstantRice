@@ -136,8 +136,16 @@ echo "Installing media and misc programs"
 sudo pacman -S flameshot deepin-image-viewer celluloid firefox
 
 cd $srcpath
+git clone https://aur.archlinux.org/python-isounidecode.git
+git clone https://aur.archlinux.org/python-pysdl2.git
 git clone https://aur.archlinux.org/tauon-music-box.git
 git clone https://aur.archlinux.org/python-pywalfox.git
+
+program="python-isounidecode"
+install
+
+program="python-pysdl2"
+install
 
 program="tauon-music-box"
 install
