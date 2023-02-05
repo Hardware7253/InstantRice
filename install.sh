@@ -133,10 +133,15 @@ clear
 
 
 echo "Installing media and misc programs"
-sudo pacman -S flameshot deepin-image-viewer celluloid
+sudo pacman -S flameshot deepin-image-viewer celluloid firefox
 
 cd $srcpath
 git clone https://aur.archlinux.org/tauon-music-box.git
+git clone https://aur.archlinux.org/python-pywalfox.git
+
 program="tauon-music-box"
+install
+
+program="python-pywalfox"
 install
 clear
