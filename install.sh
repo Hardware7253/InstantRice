@@ -71,6 +71,7 @@ chmod +x changebg.sh
 ./changebg.sh
 
 cd $srcpath
+rm -rf suckless-configs
 git clone https://github.com/Hardware7253/suckless-configs
 cd suckless-configs
 chmod +x update_configs.sh
@@ -99,7 +100,7 @@ clear
 
 
 echo "Installing pcmanfm and udiskie"
-sudo pacman -S pcmanfm udiskie xdg-utils
+sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g
 echo 'udiskie &' | cat - .xinitrc > temp && mv temp .xinitrc
 xdg-mime default pcmanfm.desktop inode/directory application
 clear
@@ -133,7 +134,7 @@ clear
 
 
 echo "Installing media and misc programs"
-sudo pacman -S flameshot deepin-image-viewer celluloid firefox
+sudo pacman -S flameshot deepin-image-viewer celluloid firefox figlet
 
 cd $srcpath
 git clone https://aur.archlinux.org/python-isounidecode.git
@@ -152,4 +153,11 @@ install
 
 program="python-pywalfox"
 install
+clear
+
+figlet Install Complete
+echo "For theming:"
+echo "Export theme and icons in themix-gui for gtk and qt themes"
+echo "Afterwards themes can be set in lxappearance and qt5ct"
+read -n 1 -s -r -p "Press any key to continue"
 clear
