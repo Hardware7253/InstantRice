@@ -155,6 +155,28 @@ program="python-pywalfox"
 install
 clear
 
+
+
+read -r -n 1 -p "Install VSCodium [Y/n]: " yn
+yn=${yn:-Y}
+clear
+
+if [ $yn == 'Y' ]; then
+	cd $srcpath
+	git clone https://aur.archlinux.org/vscodium.git
+	git clone https://aur.archlinux.org/nvm.git
+
+	program="nvm"
+	install
+
+	prorgram="vscodium"
+	install
+
+fi
+clear
+
+
+
 figlet Install Complete
 echo "For theming:"
 echo "Export theme and icons in themix-gui for gtk and qt themes"
