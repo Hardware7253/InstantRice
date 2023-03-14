@@ -3,6 +3,8 @@ clear
 
 
 
+initpath=$PWD
+
 ## Path for suclkess and aur programs
 srcpath="/usr/src"
 
@@ -95,6 +97,11 @@ chmod +x update_config.sh
 cd ~
 rm -rf xbindkeys-config
 echo 'xbindkeys' | cat - .xinitrc > temp && mv temp .xinitrc
+
+cd $initpath
+cp backlight.rules /etc/udev/rules.d/
+
+
 clear
 
 
@@ -109,6 +116,9 @@ clear
 
 echo "Installing theming applications"
 sudo pacman -S lxappearance qt5ct
+
+sudo chmod -R o+rwx /etc/environment
+echo "QT_QPA_PLATFORMTHEME=qt5ct" >> /etc/environment
 
 cd $srcpath
 git clone https://aur.archlinux.org/themix-gui-git.git
