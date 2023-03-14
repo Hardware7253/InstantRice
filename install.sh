@@ -16,8 +16,8 @@ sudo pacman -S git xorg-xinit xorg xorg-server libx11 libxinerama libxft webkit2
 sudo chown $user /usr/src
 
 cd ~
+rm .xinitrc
 touch .xinitrc
-echo "exec dwm" > .xinitrc
 
 cd $srcpath
 git clone https://git.suckless.org/dwm
@@ -55,7 +55,7 @@ build
 
 
 cd ~
-echo "dwmblocks &" | cat - .xinitrc > temp && mv temp .xinitrc
+echo "dwmblocks &" >> .xinitrc
 clear
 
 
@@ -96,11 +96,11 @@ chmod +x update_config.sh
 ./update_config.sh
 cd ~
 rm -rf xbindkeys-config
-echo 'xbindkeys' | cat - .xinitrc > temp && mv temp .xinitrc
+echo "xbindkeys" >> .xinitrc
 
 cd $initpath
 cp backlight.rules /etc/udev/rules.d/
-
+cd ~
 
 clear
 
@@ -108,7 +108,7 @@ clear
 
 echo "Installing pcmanfm and udiskie"
 sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g
-echo 'udiskie &' | cat - .xinitrc > temp && mv temp .xinitrc
+echo "udiskie &" >> .xinitrc
 xdg-mime default pcmanfm.desktop inode/directory application
 clear
 
@@ -183,6 +183,9 @@ if [ $yn == 'Y' ]; then
 	install
 
 fi
+
+cd ~
+echo "exec dwm" >> .xinitrc
 clear
 
 
