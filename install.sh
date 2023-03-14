@@ -173,15 +173,7 @@ yn=${yn:-Y}
 clear
 
 if [ $yn == 'Y' ]; then
-	cd $srcpath
-	git clone https://aur.archlinux.org/vscodium.git
-	git clone https://aur.archlinux.org/nvm.git
-
-	program="nvm"
-	install
-
-	prorgram="vscodium"
-	install
+	sudo pacman -S code	
 
 fi
 
