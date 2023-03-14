@@ -139,6 +139,7 @@ clear
 
 echo "Installing pulseaudio and pavucontrol"
 sudo pacman -S pulseaudio pulseaudio-jack pulseaudio-alsa pavucontrol pamixer
+pulseaudio -D
 clear
 
 
