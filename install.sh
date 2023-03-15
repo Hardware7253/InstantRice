@@ -107,7 +107,7 @@ clear
 
 
 echo "Installing pcmanfm and udiskie"
-sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g
+sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g gvfs-mtp
 echo "udiskie &" >> .xinitrc
 xdg-mime default pcmanfm.desktop inode/directory application
 clear
@@ -145,7 +145,7 @@ clear
 
 
 echo "Installing media and misc programs"
-sudo pacman -S flameshot deepin-image-viewer celluloid firefox figlet
+sudo pacman -S flameshot vimiv celluloid firefox figlet
 
 cd $srcpath
 git clone https://aur.archlinux.org/python-isounidecode.git
