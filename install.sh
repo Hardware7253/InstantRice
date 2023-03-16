@@ -4,6 +4,13 @@ clear
 
 
 initpath=$PWD
+read -r -n 1 -p "Setup for high dpi screens? [y/N]: " yn
+yn=${yn:-N}
+clear
+
+if [ $yn == 'N' ]; then
+	cp Xresources_hdpi Xresources
+fi
 cp Xresources ~/.Xresources
 
 ## Path for suclkess and aur programs
@@ -176,7 +183,6 @@ clear
 
 if [ $yn == 'Y' ]; then
 	sudo pacman -S code	
-
 fi
 
 
@@ -186,7 +192,6 @@ clear
 
 if [ $yn == 'Y' ]; then
 	sudo pacman -S libreoffice-fresh
-
 fi
 
 cd ~
