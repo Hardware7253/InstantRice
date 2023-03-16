@@ -179,23 +179,6 @@ if [ $yn == 'Y' ]; then
 
 fi
 
-read -r -n 1 -p "Install discord? [Y/n]: " yn
-yn=${yn:-Y}
-clear
-
-if [ $yn == 'Y' ]; then
-	sudo pacman -S discord
-
-fi
-
-read -r -n 1 -p "Install steam? [Y/n]: " yn
-yn=${yn:-Y}
-clear
-
-if [ $yn == 'Y' ]; then
-	sudo pacman -S steam	
-
-fi
 
 read -r -n 1 -p "Install libre office? [Y/n]: " yn
 yn=${yn:-Y}
