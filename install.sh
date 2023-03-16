@@ -4,6 +4,7 @@ clear
 
 
 initpath=$PWD
+cp Xresources ~/.Xresources
 
 ## Path for suclkess and aur programs
 srcpath="/usr/src"
@@ -62,6 +63,7 @@ clear
 
 echo "Installing pywal and updating configs"
 cd ~
+echo "[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources" >> .xinitrc
 sudo pacman -S python-pywal xwallpaper acpi
 mkdir -p Pictures/Wallpapers
 cd Pictures/Wallpapers
@@ -168,12 +170,39 @@ clear
 
 
 
-read -r -n 1 -p "Install VSCodium [Y/n]: " yn
+read -r -n 1 -p "Install code? [Y/n]: " yn
 yn=${yn:-Y}
 clear
 
 if [ $yn == 'Y' ]; then
 	sudo pacman -S code	
+
+fi
+
+read -r -n 1 -p "Install discord? [Y/n]: " yn
+yn=${yn:-Y}
+clear
+
+if [ $yn == 'Y' ]; then
+	sudo pacman -S discord
+
+fi
+
+read -r -n 1 -p "Install steam? [Y/n]: " yn
+yn=${yn:-Y}
+clear
+
+if [ $yn == 'Y' ]; then
+	sudo pacman -S steam	
+
+fi
+
+read -r -n 1 -p "Install libre office? [Y/n]: " yn
+yn=${yn:-Y}
+clear
+
+if [ $yn == 'Y' ]; then
+	sudo pacman -S libreoffice-fresh
 
 fi
 
