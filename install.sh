@@ -4,13 +4,15 @@ clear
 
 
 initpath=$PWD
-read -r -n 1 -p "Setup for high dpi screens? [y/N]: " yn
-yn=${yn:-N}
-clear
 
-if [ $yn == 'N' ]; then
-	cp Xresources_hdpi Xresources
-fi
+## Copy Xresources into home folder
+read -r -n 1 -p "$*Setup for high dpi screen? [y/N]: " yn
+clear
+yn=${yn:-N}
+case $yn in
+	[Yy]*) cp Xresources_hdpi Xresources ;;
+	[Nn]*) ;;
+esac
 cp Xresources ~/.Xresources
 
 ## Path for suclkess and aur programs
@@ -177,23 +179,7 @@ clear
 
 
 
-read -r -n 1 -p "Install code? [Y/n]: " yn
-yn=${yn:-Y}
-clear
-
-if [ $yn == 'Y' ]; then
-	sudo pacman -S code	
-fi
-
-
-read -r -n 1 -p "Install libre office? [Y/n]: " yn
-yn=${yn:-Y}
-clear
-
-if [ $yn == 'Y' ]; then
-	sudo pacman -S libreoffice-fresh
-fi
-
+## Make sure exec dwm is the last thing added to .xinitrc
 cd ~
 echo "exec dwm" >> .xinitrc
 clear
