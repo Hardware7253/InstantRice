@@ -22,7 +22,7 @@ srcpath="/usr/src"
 
 echo "Installing dwm, dmenu, st, and dwmblocks"
 read -p "Enter user: " user
-sudo pacman -S git xorg-xinit xorg xorg-server libx11 libxinerama libxft webkit2gtk base-devel ttf-ubuntu-font-family
+sudo pacman -S git xorg-xinit xorg xorg-server libx11 libxinerama libxft webkit2gtk base-devel ttf-hack
 sudo chown $user /usr/src
 
 cd ~
