@@ -118,7 +118,7 @@ clear
 
 
 echo "Installing pcmanfm and udiskie"
-sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g gvfs-mtp
+sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g gvfs-mtp xarchiver
 echo "udiskie &" >> .xinitrc
 xdg-mime default pcmanfm.desktop inode/directory application
 clear
