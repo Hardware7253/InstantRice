@@ -156,7 +156,9 @@ clear
 
 
 echo "Installing media and misc programs"
-sudo pacman -S flameshot vimiv celluloid firefox figlet
+sudo pacman -S flameshot vimiv celluloid firefox figlet polkit-gnome
+
+mkdir ~/Pictures/Screenshots
 
 cd $srcpath
 git clone https://aur.archlinux.org/python-isounidecode.git
@@ -175,6 +177,9 @@ install
 
 program="python-pywalfox"
 install
+
+cd ~
+echo "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &" >> .xinitrc
 clear
 
 
