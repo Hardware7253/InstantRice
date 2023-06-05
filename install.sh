@@ -109,9 +109,7 @@ cd ~
 rm -rf xbindkeys-config
 echo "xbindkeys" >> .xinitrc
 
-cd $initpath
-cp backlight.rules /etc/udev/rules.d/
-cd ~
+sudo chown $user /sys/class/backlight
 
 clear
 
@@ -195,5 +193,8 @@ figlet Install Complete
 echo "For theming:"
 echo "Export theme and icons in themix-gui for gtk and qt themes"
 echo "Afterwards themes can be set in lxappearance and qt5ct"
+echo
+echo "A system restart is also recommended"
+echo
 read -n 1 -s -r -p "Press any key to continue"
 clear
