@@ -154,7 +154,7 @@ clear
 
 
 echo "Installing media and misc programs"
-sudo pacman -S flameshot vimiv celluloid firefox figlet polkit-gnome
+sudo pacman -S flameshot vimiv mpv firefox figlet polkit-gnome
 
 mkdir ~/Pictures/Screenshots
 
