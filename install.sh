@@ -160,13 +160,14 @@ sudo systemctl enable sddm.service
 ## Add dwm as session
 sudo ln -s ~/.xinitrc /usr/bin/rundwm
 sudo chmod +x /usr/bin/rundwm
-sudo echo "[Desktop Entry]
+echo "[Desktop Entry]
 Encoding=UTF-8
 Name=dwm
 Comment=Log in using the Dynamic Window Manager
 Exec=/usr/bin/rundwm
 Icon=/usr/local/bin/dwm.png
-Type=XSession" >> /usr/share/xsessions/dwm.desktop
+Type=XSession" | sudo tee -a /usr/share/xsessions/dwm.desktop > /dev/null
+
 
 ## Install theme
 cd ~
@@ -174,8 +175,8 @@ mkdir temp
 cd temp
 git clone https://github.com/catppuccin/sddm.git
 sudo cp -r sddm/src/catppuccin-mocha /usr/share/sddm/themes/
-sudo echo "[Theme]
-Current=catppuccin-mocha" >> /etc/sddm.conf
+echo "[Theme]
+Current=catppuccin-mocha" | sudo tee -a /etc/sddm.conf > /dev/null
 cd ~
 rm -rf temp
 clear
