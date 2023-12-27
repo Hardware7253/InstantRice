@@ -160,13 +160,12 @@ sudo systemctl enable sddm.service
 ## Add dwm as session
 sudo ln -s ~/.xinitrc /usr/bin/rundwm
 sudo chmod +x /usr/bin/rundwm
-Sudo echo "[Desktop Entry]
+sudo echo "[Desktop Entry]
 Encoding=UTF-8
-Name=DWM
+Name=dwm
 Comment=Log in using the Dynamic Window Manager
 Exec=/usr/bin/rundwm
 Icon=/usr/local/bin/dwm.png
-TryExec=/usr/bin/rundwm
 Type=XSession" >> /usr/share/xsessions/dwm.desktop
 
 ## Install theme
