@@ -153,6 +153,36 @@ clear
 
 
 
+echo "Installing SDDM"
+sudo pacman -S sddm qt5-graphicaleffects qt5-svg qt5-quickcontrols2
+sudo systemctl enable sddm.service
+
+## Add dwm as session
+sudo ln -s ~/.xinitrc /usr/bin/rundwm
+sudo chmod +x /usr/bin/rundwm
+Sudo echo "[Desktop Entry]
+Encoding=UTF-8
+Name=DWM
+Comment=Log in using the Dynamic Window Manager
+Exec=/usr/bin/rundwm
+Icon=/usr/local/bin/dwm.png
+TryExec=/usr/bin/rundwm
+Type=XSession" >> /usr/share/xsessions/dwm.desktop
+
+## Install theme
+cd ~
+mkdir temp
+cd temp
+git clone https://github.com/catppuccin/sddm.git
+sudo cp -r sddm/src/catppuccin-mocha /usr/share/sddm/themes/
+sudo echo "[Theme]
+Current=catppuccin-mocha" >> /etc/sddm.conf
+cd ~
+rm -rf temp
+clear
+
+
+
 echo "Installing media and misc programs"
 sudo pacman -S flameshot vimiv mpv firefox figlet polkit-gnome
 
