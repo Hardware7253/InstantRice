@@ -21,9 +21,8 @@ srcpath="/usr/src"
 
 
 echo "Installing dwm, dmenu, st, and dwmblocks"
-read -p "Enter user: " user
 sudo pacman -S git xorg-xinit xorg xorg-server libx11 libxinerama libxft webkit2gtk base-devel ttf-jetbrains-mono
-sudo chown $user /usr/src
+sudo chown $(whoami) /usr/src
 
 cd ~
 rm .xinitrc
@@ -109,7 +108,7 @@ cd ~
 rm -rf xbindkeys-config
 echo "xbindkeys" >> .xinitrc
 
-sudo chown $user /sys/class/backlight
+sudo chown $(whoami) /sys/class/backlight
 
 clear
 
