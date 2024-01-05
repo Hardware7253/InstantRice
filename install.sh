@@ -29,7 +29,7 @@ yn=${yn:-N}
 case $yn in
 	[Yy]*)
 		sed -i 's/96/192/g' ~/.Xresources
-		sed -i 's/18/36/g' dmenu.h dwm.h dwmblocks.h st.h 
+		sed -i 's/18/36/g' dmenu.h dwm.h dwmblocks.h  
 	;;
 	[Nn]*) ;;
 esac
@@ -40,7 +40,7 @@ clear
 ## Path for suclkess and aur programs
 src_path="/usr/src"
 
-echo "Installing dwm, dmenu, st, and dwmblocks"
+echo "Installing dwm, dmenu, and dwmblocks"
 sudo pacman -S git xorg-xinit xorg xorg-server autorandr libx11 libxinerama libxft webkit2gtk base-devel ttf-jetbrains-mono
 sudo chown $(whoami) /usr/src
 
@@ -69,7 +69,6 @@ copy_config() {
 cd $src_path
 git clone https://git.suckless.org/dwm
 git clone https://git.suckless.org/dmenu
-git clone https://git.suckless.org/st
 git clone https://github.com/torrinfail/dwmblocks.git
 
 program="dwm"
@@ -77,10 +76,6 @@ copy_config
 build
 
 program="dmenu"
-copy_config
-build
-
-program="st"
 copy_config
 build
 
@@ -105,6 +100,17 @@ rm -rf changebg-wal
 chmod +x changebg.sh
 ./changebg.sh
 
+clear
+
+
+
+cd ~
+echo "Installing kitty"
+append_file=".config/kitty/kitty.conf"
+touch $append_file
+append_line="include ~/.cache/wal/colors-kitty.conf
+font_size 14.0"
+append
 clear
 
 
