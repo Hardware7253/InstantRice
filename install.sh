@@ -1,77 +1,100 @@
 #!/bin/bash
 clear
-
-
-
+read -n 1 -s -r -p "This script will overide most of your existing configs for any relevant programs, thus is only recommended for fresh systems (press any key to continue)"
 initpath=$PWD
-
-## Copy Xresources into home folder
-read -r -n 1 -p "$*Setup for high dpi screen? [y/N]: " yn
 clear
-yn=${yn:-N}
-case $yn in
-	[Yy]*) cp Xresources_hdpi Xresources ;;
-	[Nn]*) ;;
-esac
-cp Xresources ~/.Xresources
 
-## Path for suclkess and aur programs
-srcpath="/usr/src"
+## Copy configs
+cp config/.Xresources ~
+cp config/.xinitrc_def ~
+cp config/.xbindkeysrc ~
+chmod +x ~/.xinitrc_def
 
-
-
-echo "Installing dwm, dmenu, st, and dwmblocks"
-sudo pacman -S git xorg-xinit xorg xorg-server libx11 libxinerama libxft webkit2gtk base-devel ttf-jetbrains-mono
-sudo chown $(whoami) /usr/src
+append() {
+	grep -qF -- "$append_line" "$append_file" || echo "$append_line" >> "$append_file"
+}
 
 cd ~
-rm .xinitrc
 touch .xinitrc
+append_file=".xinitrc"
+append_line="xwallpaper --center ~/Pictures/Wallpapers/Leaves.jpg"
+append
+append_line="./.xinitrc_def ## Exit point, no exec before here"
+append
 
-cd $srcpath
-git clone https://git.suckless.org/dwm
-git clone https://git.suckless.org/dmenu
-git clone https://git.suckless.org/st
-git clone https://github.com/torrinfail/dwmblocks.git
 
-## For installing suckless programs + dwmblocks
+## Double font sizes and dpi if the user has a high dpi screen
+read -r -n 1 -p "$*Setup for high dpi screen? [y/N]: " yn
+yn=${yn:-N}
+case $yn in
+	[Yy]*)
+		sed -i 's/96/192/g' ~/.Xresources
+		sed -i 's/18/36/g' dmenu.h dwm.h dwmblocks.h st.h 
+	;;
+	[Nn]*) ;;
+esac
+clear
+
+
+
+## Path for suclkess and aur programs
+src_path="/usr/src"
+
+echo "Installing dwm, dmenu, st, and dwmblocks"
+sudo pacman -S git xorg-xinit xorg xorg-server autorandr libx11 libxinerama libxft webkit2gtk base-devel ttf-jetbrains-mono
+sudo chown $(whoami) /usr/src
+
+## For building programs with make
 build() {
-	programpath="$srcpath/$program"
-	cd "$programpath"
+	program_path="$src_path/$program"
+	cd "$program_path"
 	sudo make clean install
 	return
 }
 
 ## For installing aur packages
 install() {
-	programpath="$srcpath/$program"
-	cd "$programpath"
+	program_path="$src_path/$program"
+	cd "$program_path"
 	makepkg -si PKGBUILD
 	return
 }
 
+## For copying the configs to the source directory
+copy_config() {
+ cd "$initpath/config"
+ cp "${program}.h" "$src_path/$program/config.h"
+}
+
+cd $src_path
+git clone https://git.suckless.org/dwm
+git clone https://git.suckless.org/dmenu
+git clone https://git.suckless.org/st
+git clone https://github.com/torrinfail/dwmblocks.git
+
 program="dwm"
+copy_config
 build
 
 program="dmenu"
+copy_config
 build
 
 program="st"
+copy_config
 build
 
 program="dwmblocks"
+copy_config
+mv "$src_path/$program/config.h" "$src_path/$program/blocks.h"
 build
 
-
-cd ~
-echo "dwmblocks &" >> .xinitrc
 clear
 
 
 
-echo "Installing pywal and updating configs"
+echo "Installing pywal"
 cd ~
-echo "[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources" >> .xinitrc
 sudo pacman -S python-pywal xwallpaper acpi
 mkdir -p Pictures/Wallpapers
 cd Pictures/Wallpapers
@@ -82,41 +105,22 @@ rm -rf changebg-wal
 chmod +x changebg.sh
 ./changebg.sh
 
-cd $srcpath
-rm -rf suckless-configs
-git clone https://github.com/Hardware7253/suckless-configs
-cd suckless-configs
-chmod +x update_configs.sh
-./update_configs.sh
 clear
 
 
 
 echo "Installing and configuring xbindkeys"
-cd $srcpath
+cd $src_path
 git clone https://aur.archlinux.org/brillo.git
 program="brillo"
 install
-
-cd ~
-sudo pacman -S xbindkeys
-git clone https://github.com/Hardware7253/xbindkeys-config.git
-cd xbindkeys-config
-chmod +x update_config.sh
-./update_config.sh
-cd ~
-rm -rf xbindkeys-config
-echo "xbindkeys" >> .xinitrc
-
 sudo chown $(whoami) /sys/class/backlight
-
 clear
 
 
 
 echo "Installing pcmanfm and udiskie"
 sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g gvfs-mtp xarchiver
-echo "udiskie &" >> .xinitrc
 xdg-mime default pcmanfm.desktop inode/directory application
 clear
 
@@ -128,7 +132,7 @@ sudo pacman -S lxappearance qt5ct
 sudo chmod -R o+rwx /etc/environment
 echo "QT_QPA_PLATFORMTHEME=qt5ct" >> /etc/environment
 
-cd $srcpath
+cd $src_path
 git clone https://aur.archlinux.org/themix-gui-git.git
 git clone https://aur.archlinux.org/themix-icons-papirus-git.git
 git clone https://aur.archlinux.org/themix-theme-oomox-git.git
@@ -187,7 +191,7 @@ sudo pacman -S flameshot vimiv mpv firefox figlet polkit-gnome
 
 mkdir ~/Pictures/Screenshots
 
-cd $srcpath
+cd $src_path
 git clone https://aur.archlinux.org/python-isounidecode.git
 git clone https://aur.archlinux.org/python-pysdl2.git
 git clone https://aur.archlinux.org/tauon-music-box.git
@@ -205,15 +209,6 @@ install
 program="python-pywalfox"
 install
 
-cd ~
-echo "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &" >> .xinitrc
-clear
-
-
-
-## Make sure exec dwm is the last thing added to .xinitrc
-cd ~
-echo "exec dwm" >> .xinitrc
 clear
 
 
