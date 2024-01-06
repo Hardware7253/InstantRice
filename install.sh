@@ -169,6 +169,7 @@ sudo systemctl enable sddm.service
 ## Add dwm as session
 sudo ln -s ~/.xinitrc /usr/bin/rundwm
 sudo chmod +x /usr/bin/rundwm
+sudo mkdir /usr/share/xsessions
 echo "[Desktop Entry]
 Encoding=UTF-8
 Name=dwm
