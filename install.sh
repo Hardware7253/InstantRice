@@ -109,6 +109,7 @@ echo "Installing kitty"
 append_file=".config/kitty/kitty.conf"
 touch $append_file
 append_line="include ~/.cache/wal/colors-kitty.conf
+confirm_os_window_close 0
 font_size 14.0"
 append
 clear
