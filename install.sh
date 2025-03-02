@@ -4,26 +4,20 @@ read -n 1 -s -r -p "This script will overide most of your existing configs for a
 initpath=$PWD
 clear
 
-## Copy configs
+# Copy configs
 cp config/.Xresources ~
-cp config/.xinitrc_def ~
+cp config/.xinitrc ~
 cp config/.xbindkeysrc ~
-chmod +x ~/.xinitrc_def
+cp -r config/.vim ~
+cp config/.vimrc ~
+cp config/kitty.conf ~/.config/kitty/
+chmod +x ~/.xinitrc
 
 append() {
 	grep -qF -- "$append_line" "$append_file" || echo "$append_line" >> "$append_file"
 }
 
-cd ~
-touch .xinitrc
-append_file=".xinitrc"
-append_line="xwallpaper --center ~/Pictures/Wallpapers/Leaves.jpg"
-append
-append_line="./.xinitrc_def ## Exit point, no exec before here"
-append
-
-
-## Double font sizes and dpi if the user has a high dpi screen
+# Double font sizes and dpi if the user has a high dpi screen
 read -r -n 1 -p "$*Setup for high dpi screen? [y/N]: " yn
 yn=${yn:-N}
 case $yn in
@@ -37,14 +31,14 @@ clear
 
 
 
-## Path for suclkess and aur programs
+# Path for suclkess and aur programs
 src_path="/usr/src"
 
 echo "Installing dwm, dmenu, and dwmblocks"
 sudo pacman -S git xorg-xinit xorg xorg-server autorandr libx11 libxinerama libxft webkit2gtk base-devel ttf-jetbrains-mono
 sudo chown $(whoami) /usr/src
 
-## For building programs with make
+# For building programs with make
 build() {
 	program_path="$src_path/$program"
 	cd "$program_path"
@@ -52,7 +46,7 @@ build() {
 	return
 }
 
-## For installing aur packages
+# For installing aur packages
 install() {
 	program_path="$src_path/$program"
 	cd "$program_path"
@@ -60,7 +54,7 @@ install() {
 	return
 }
 
-## For copying the configs to the source directory
+# For copying the configs to the source directory
 copy_config() {
  cd "$initpath/config"
  cp "${program}.h" "$src_path/$program/config.h"
@@ -106,6 +100,9 @@ clear
 
 cd ~
 echo "Installing kitty"
+sudo pacman -S kitty
+mkdir .config
+mkdir .config/kitty
 append_file=".config/kitty/kitty.conf"
 touch $append_file
 append_line="include ~/.cache/wal/colors-kitty.conf
@@ -117,6 +114,7 @@ clear
 
 
 echo "Installing and configuring xbindkeys"
+sudo pacman -S xbindkeys
 cd $src_path
 git clone https://aur.archlinux.org/brillo.git
 program="brillo"
@@ -127,7 +125,7 @@ clear
 
 
 echo "Installing pcmanfm and udiskie"
-sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g gvfs-mtp xarchiver
+sudo pacman -S pcmanfm udiskie xdg-utils ntfs-3g gvfs-mtp zip unzip xarchiver
 xdg-mime default pcmanfm.desktop inode/directory application
 clear
 
@@ -167,7 +165,7 @@ echo "Installing SDDM"
 sudo pacman -S sddm qt5-graphicaleffects qt5-svg qt5-quickcontrols2
 sudo systemctl enable sddm.service
 
-## Add dwm as session
+# Add dwm as session
 sudo ln -s ~/.xinitrc /usr/bin/rundwm
 sudo chmod +x /usr/bin/rundwm
 sudo mkdir /usr/share/xsessions
@@ -180,7 +178,7 @@ Icon=/usr/local/bin/dwm.png
 Type=XSession" | sudo tee -a /usr/share/xsessions/dwm.desktop > /dev/null
 
 
-## Install theme
+# Install sddm theme
 cd ~
 mkdir temp
 cd temp
@@ -195,18 +193,14 @@ clear
 
 
 echo "Installing media and misc programs"
-sudo pacman -S flameshot vimiv mpv firefox figlet polkit-gnome
+sudo pacman -S noto-fonts-cjk neofetch htop flameshot gvim vi vimiv mpv figlet polkit-gnome
 
 mkdir ~/Pictures/Screenshots
 
 cd $src_path
-git clone https://aur.archlinux.org/python-isounidecode.git
 git clone https://aur.archlinux.org/python-pysdl2.git
 git clone https://aur.archlinux.org/tauon-music-box.git
-git clone https://aur.archlinux.org/python-pywalfox.git
-
-program="python-isounidecode"
-install
+git clone https://aur.archlinux.org/brave-bin.git 
 
 program="python-pysdl2"
 install
@@ -214,7 +208,7 @@ install
 program="tauon-music-box"
 install
 
-program="python-pywalfox"
+program="brave-bin"
 install
 
 clear

@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/run/media/oxnh/3a66830a-7f1b-48de-828b-55f2730686c3/home/oxnh'
+let g:netrw_dirhist_6='/home/oxnh/qmk_firmware/keyboards/koca'
+let g:netrw_dirhist_5='/home/oxnh/Code/Rust/EmbeddedRustExamples/i2c'
+let g:netrw_dirhist_4='/home/oxnh/Code/Rust/EmbeddedRustExamples/i2c/src'
+let g:netrw_dirhist_3='/home/oxnh/Code/Rust/EmbeddedRustExamples/i2c'
+let g:netrw_dirhist_2='/home/oxnh/Code/Rust/EmbeddedRustExamples/blink/src'
+let g:netrw_dirhist_1='/home/oxnh/Code/Rust/EmbeddedRustExamples/blink'
+let g:netrw_dirhist_0='/home/oxnh/Code/Rust/EmbeddedRustExamples/blink/src'
+let g:netrw_dirhist_9='/home/oxnh/Code/Rust/EmbeddedRustExamples/i2c/src'
+let g:netrw_dirhist_8='/home/oxnh/Code/Rust/EmbeddedRustExamples/i2c'
