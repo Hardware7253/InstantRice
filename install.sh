@@ -131,24 +131,15 @@ clear
 
 
 
-echo "Installing theming applications"
-sudo pacman -S lxappearance qt5ct
+echo "Installing theming applications and themes"
+sudo pacman -S lxappearance qt5ct breeze-gtk papirus-icon-theme
 
 sudo chmod -R o+rwx /etc/environment
 echo "QT_QPA_PLATFORMTHEME=qt5ct" >> /etc/environment
 
 cd $src_path
-git clone https://aur.archlinux.org/themix-gui-git.git
-git clone https://aur.archlinux.org/themix-icons-papirus-git.git
-git clone https://aur.archlinux.org/themix-theme-oomox-git.git
-
-program="themix-gui-git"
-install
-
-program="themix-icons-papirus-git"
-install
-
-program="themix-theme-oomox-git"
+git clone https://aur.archlinux.org/papirus-folders.git
+program="papirus-folders"
 install
 clear
 
@@ -216,11 +207,8 @@ clear
 
 
 figlet Install Complete
-echo "For theming:"
-echo "Export theme and icons in themix-gui for gtk and qt themes"
-echo "Afterwards themes can be set in lxappearance and qt5ct"
-echo
-echo "A system restart is also recommended"
+echo "Themes can be set in lxappearance and qt5ct"
+echo "A system restart is recommended"
 echo
 read -n 1 -s -r -p "Press any key to continue"
 clear
